@@ -68,7 +68,7 @@ public class TribeFormController extends SimpleFormController {
 		String view = getFormView();
 		if (Context.isAuthenticated()) {
 			Tribe tribe = (Tribe)obj;
-			((TribeService)Context.getService(TribeService.class)).updateTribe(tribe);
+			((TribeService)Context.getService(TribeService.class)).saveTribe(tribe);
 			view = getSuccessView();
 
 			MessageSourceAccessor msa = getMessageSourceAccessor();

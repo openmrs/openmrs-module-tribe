@@ -164,10 +164,17 @@ public class Tribe implements java.io.Serializable, Attributable<Tribe> {
 		return getName();
 	}
 	
+
+	/**
+	 * listField.tag generic fieldGen handler value
+	 */
 	public String getValue() {
 		return String.valueOf(tribeId);
 	}
-	
+
+	/**
+	 * listField.tag generic fieldGen handler label
+	 */	
 	public String getLabel() {
 		return name;
 	}

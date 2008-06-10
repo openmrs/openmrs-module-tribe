@@ -36,31 +36,13 @@ public class TribeServiceImpl extends BaseOpenmrsService implements TribeService
 	}	
 
 	/**
-	 * Create a new Tribe
-	 * 
-	 * @param Tribe to create
-	 * @throws APIException
-	 */
-	public void createTribe(Tribe tribe) throws APIException {
-		if (!Context.hasPrivilege(TribeConstants.PRIV_MANAGE_TRIBES))
-			throw new APIAuthenticationException("Privilege required: "
-			        + TribeConstants.PRIV_MANAGE_TRIBES);
-
-		dao.createTribe(tribe);
-	}
-
-	/**
 	 * Update Tribe
 	 * 
 	 * @param Tribe to update
 	 * @throws APIException
 	 */
-	public void updateTribe(Tribe tribe) throws APIException {
-		if (!Context.hasPrivilege(TribeConstants.PRIV_MANAGE_TRIBES))
-			throw new APIAuthenticationException("Privilege required: "
-			        + TribeConstants.PRIV_MANAGE_TRIBES);
-
-		dao.updateTribe(tribe);
+	public void saveTribe(Tribe tribe) throws APIException {
+		dao.saveTribe(tribe);
 	}
 
 	/**
@@ -69,12 +51,8 @@ public class TribeServiceImpl extends BaseOpenmrsService implements TribeService
 	 * @param Tribe to delete
 	 * @throws APIException
 	 */
-	public void deleteTribe(Tribe tribe) throws APIException {
-		if (!Context.hasPrivilege(TribeConstants.PRIV_MANAGE_TRIBES))
-			throw new APIAuthenticationException("Privilege required: "
-			        + TribeConstants.PRIV_MANAGE_TRIBES);
-
-		dao.deleteTribe(tribe);
+	public void purgeTribe(Tribe tribe) throws APIException {
+		dao.purgeTribe(tribe);
 	}
 	
 	/**
@@ -84,10 +62,6 @@ public class TribeServiceImpl extends BaseOpenmrsService implements TribeService
 	 * @throws APIException
 	 */
 	public void retireTribe(Tribe tribe) throws APIException {
-		if (!Context.hasPrivilege(TribeConstants.PRIV_MANAGE_TRIBES))
-			throw new APIAuthenticationException("Privilege required: "
-			        + TribeConstants.PRIV_MANAGE_TRIBES);
-
 		dao.retireTribe(tribe);
 	}
 
@@ -98,10 +72,6 @@ public class TribeServiceImpl extends BaseOpenmrsService implements TribeService
 	 * @throws APIException
 	 */
 	public void unretireTribe(Tribe tribe) throws APIException {
-		if (!Context.hasPrivilege(TribeConstants.PRIV_MANAGE_TRIBES))
-			throw new APIAuthenticationException("Privilege required: "
-			        + TribeConstants.PRIV_MANAGE_TRIBES);
-
 		dao.unretireTribe(tribe);
 	}
 	

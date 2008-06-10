@@ -25,6 +25,10 @@
 		<class>@MODULE_PACKAGE@.extension.html.AdminList</class>
 	</extension>
 	
+	<extension>
+		<point>org.openmrs.patientDashboard.Header</point>
+		<class>@MODULE_PACKAGE@.extension.html.PatientDashboardHeader</class>
+	</extension>
 	
 	<!-- AOP
 	<advice>

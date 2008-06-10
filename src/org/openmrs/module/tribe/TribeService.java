@@ -20,8 +20,13 @@ import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.tribe.db.TribeDAO;
+import org.openmrs.util.OpenmrsConstants;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Tribe objects administration functions 
+ *
+ */
 @Transactional
 public interface TribeService extends OpenmrsService {
 	/**
@@ -32,27 +37,27 @@ public interface TribeService extends OpenmrsService {
 	public void setTribeDAO(TribeDAO dao);
 	
 	/**
+	 * Create or update Tribe
 	 */
-	public void createTribe(Tribe tribe) throws APIException;
+	@Authorized( { TribeConstants.PRIV_MANAGE_TRIBES })
+	public void saveTribe(Tribe tribe) throws APIException;
 
 	/**
-	 * Update Tribe
+	 * Purge Tribe
 	 */
-	public void updateTribe(Tribe tribe) throws APIException;
-
-	/**
-	 * Delete Tribe
-	 */
-	public void deleteTribe(Tribe tribe) throws APIException;
+	@Authorized( { TribeConstants.PRIV_MANAGE_TRIBES })
+	public void purgeTribe(Tribe tribe) throws APIException;
 
 	/**
 	 * Retire Tribe
 	 */
+	@Authorized( { TribeConstants.PRIV_MANAGE_TRIBES })	
 	public void retireTribe(Tribe tribe) throws APIException;
 
 	/**
 	 * Unretire Tribe
 	 */
+	@Authorized( { TribeConstants.PRIV_MANAGE_TRIBES })	
 	public void unretireTribe(Tribe tribe) throws APIException;
 	
 

@@ -46,26 +46,16 @@ public class HibernateTribeDAO implements TribeDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.api.db.AdministrationService#createTribe(org.openmrs.Tribe)
-	 */
-	public void createTribe(Tribe tribe) throws DAOException {
-		sessionFactory.getCurrentSession().save(tribe);
-	}
-	
-	/**
 	 * @see org.openmrs.api.db.AdministrationService#updateTribe(org.openmrs.Tribe)
 	 */
-	public void updateTribe(Tribe tribe) throws DAOException {
-		if (tribe.getTribeId() == null)
-			createTribe(tribe);
-		else
-			sessionFactory.getCurrentSession().saveOrUpdate(tribe);
+	public void saveTribe(Tribe tribe) throws DAOException {
+		sessionFactory.getCurrentSession().saveOrUpdate(tribe);
 	}	
 
 	/**
 	 * @see org.openmrs.api.db.AdministrationService#deleteTribe(org.openmrs.Tribe)
 	 */
-	public void deleteTribe(Tribe tribe) throws DAOException {
+	public void purgeTribe(Tribe tribe) throws DAOException {
 		sessionFactory.getCurrentSession().delete(tribe);
 	}
 	
@@ -74,7 +64,7 @@ public class HibernateTribeDAO implements TribeDAO {
 	 */
 	public void retireTribe(Tribe tribe) throws DAOException {
 		tribe.setRetired(true);
-		updateTribe(tribe);
+		saveTribe(tribe);
 	}
 
 	/**
@@ -82,7 +72,7 @@ public class HibernateTribeDAO implements TribeDAO {
 	 */
 	public void unretireTribe(Tribe tribe) throws DAOException {
 		tribe.setRetired(false);
-		updateTribe(tribe);
+		saveTribe(tribe);
 	}
 	
 
@@ -99,7 +89,6 @@ public class HibernateTribeDAO implements TribeDAO {
 	
 	/**
 	 * @see org.openmrs.api.PatientService#getTribes()
-	 * @deprecated tribe will be moved to patient attribute
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Tribe> getTribes() throws DAOException {
@@ -112,7 +101,6 @@ public class HibernateTribeDAO implements TribeDAO {
 	
 	/**
 	 * @see org.openmrs.api.PatientService#findTribes()
-	 * @deprecated tribe will be moved to patient attribute
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Tribe> findTribes(String s) throws DAOException {

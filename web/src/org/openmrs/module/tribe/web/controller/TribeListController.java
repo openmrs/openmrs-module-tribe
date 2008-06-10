@@ -86,20 +86,22 @@ public class TribeListController extends SimpleFormController {
 			MessageSourceAccessor msa = getMessageSourceAccessor();
 			String changed = msa.getMessage("general.changed");
 			String notChanged = msa.getMessage("general.cannot.change");
-			for (String t : tribeList) {
-				//TODO convenience method deleteOrderType(Integer) ??
-				try {
-					if (action.equals("retire"))
-						ts.retireTribe(ts.getTribe(Integer.valueOf(t)));
-					if (action.equals("unretire"))
-						ts.unretireTribe(ts.getTribe(Integer.valueOf(t)));
-					if (!success.equals("")) success += "<br/>";
-					success += t + " " + changed;
-				}
-				catch (APIException e) {
-					log.warn("Error deleting tribe", e);
-					if (!error.equals("")) error += "<br/>";
-					error += t + " " + notChanged;
+			
+			if(tribeList != null) {
+				for (String t : tribeList) {
+					try {
+						if (action.equals("retire"))
+							ts.retireTribe(ts.getTribe(Integer.valueOf(t)));
+						if (action.equals("unretire"))
+							ts.unretireTribe(ts.getTribe(Integer.valueOf(t)));
+						if (!success.equals("")) success += "<br/>";
+						success += t + " " + changed;
+					}
+					catch (APIException e) {
+						log.warn("Error deleting tribe", e);
+						if (!error.equals("")) error += "<br/>";
+						error += t + " " + notChanged;
+					}
 				}
 			}
 			

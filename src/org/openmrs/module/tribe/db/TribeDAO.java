@@ -20,26 +20,20 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.tribe.Tribe;
 
 public interface TribeDAO {
-	/**
-	 * Create a new Tribe
-	 * @param Tribe to create
-	 * @throws DAOException
-	 */
-	public void createTribe(Tribe tribe) throws DAOException;
 
 	/**
-	 * Update Tribe
-	 * @param Tribe to update
+	 * Create or update Tribe
+	 * @param Tribe to create or update
 	 * @throws DAOException
 	 */
-	public void updateTribe(Tribe tribe) throws DAOException;
+	public void saveTribe(Tribe tribe) throws DAOException;
 
 	/**
 	 * Delete Tribe
 	 * @param Tribe to delete
 	 * @throws DAOException
 	 */
-	public void deleteTribe(Tribe tribe) throws DAOException;	
+	public void purgeTribe(Tribe tribe) throws DAOException;	
 	
 	/**
 	 * Retire Tribe

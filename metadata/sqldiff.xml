@@ -15,22 +15,24 @@
 	
 	<diff>
 		<version>1.0.0</version>
-		<author>Upul GOdage</author>
+		<author>Upul Godage</author>
 		<date>May 26th 2008</date>
 		<description>
 			
 		</description>
 		<sql>
-CREATE TABLE IF NOT EXISTS tribe (
-  tribe_id int(11) NOT NULL auto_increment,
-  retired tinyint(1) NOT NULL default '0',
-  name varchar(50) NOT NULL default '',
-  PRIMARY KEY  (tribe_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO person_attribute_type 
-	(name, description, format, creator, date_created) 
-	VALUES ('Tribe', 'Tribe of the person', 'org.openmrs.module.tribe.Tribe', 1, now());		
+			CREATE TABLE IF NOT EXISTS tribe (
+			  tribe_id int(11) NOT NULL auto_increment,
+			  retired tinyint(1) NOT NULL default '0',
+			  name varchar(50) NOT NULL default '',
+			  PRIMARY KEY  (tribe_id)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			
+			INSERT INTO person_attribute_type 
+				(name, description, format, creator, date_created) 
+				VALUES ('Tribe', 'Tribe of the person', 'org.openmrs.module.tribe.Tribe', 1, now());
+				
+			DELETE FROM global_property WHERE property = 'use_patient_attribute.tribe';		
 		</sql>
 	</diff>
 	

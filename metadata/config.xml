@@ -9,15 +9,14 @@
 	<package>org.openmrs.module.@MODULE_ID@</package>
 	<author>Upul Godage</author>
 	<description>
-			Tribe Module
+			Adds a new "Tribe" PersonAttributeType
 	</description>
 
 	<activator>@MODULE_PACKAGE@.TribeActivator</activator>
 	
-	<!-- <updateURL>https://dev.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
-	<!-- /Base Module Properties -->
+	<updateURL>https://dev.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL>
 	
-	<require_version>1.4.0</require_version>
+	<require_version>1.5.0</require_version>
 	
 	<!-- Extensions -->
 	<extension>
@@ -28,15 +27,7 @@
 	<extension>
 		<point>org.openmrs.patientDashboard.Header</point>
 		<class>@MODULE_PACKAGE@.extension.html.PatientDashboardHeader</class>
-	</extension>
-	
-	<!-- AOP
-	<advice>
-		<point>org.openmrs.api.FormService</point>
-		<class>@MODULE_PACKAGE@.advice.DuplicateFormAdvisor</class>
-	</advice>
-	 /AOP -->
-	
+	</extension>	
 	
 	<privilege>
 		<name>View Tribes</name>
@@ -46,48 +37,7 @@
 	<privilege>
 		<name>Manage Tribes</name>
 		<description>Able to add/edit/delete tribes</description>
-	</privilege>
-
-
-	<!-- Required Global Properties 
-	<globalProperty>
-		<property>@MODULE_ID@.someProperty</property>
-		<defaultValue></defaultValue>
-		<description>
-			A description of the global property goes here.  The description
-			should explain enough for administrators to understand the purpose
-			and possible values for the global property.
-		</description>
-	</globalProperty>
-	/Required Global Properties -->
-	
-	<!--
-	<dwr>
-		<allow>
-			<create creator="new" javascript="DWRFormEntryService">
-				<param name="class" value="org.openmrs.module.@MODULE_ID@.web.DWRFormEntryService"/>
-				<include method="enterForm"/>
-			</create>
-		</allow>
-
-		<signatures>
-			<![CDATA[
-			import @MODULE_PACKAGE@.web.DWRFormEntryService;
-			DWRFormEntryService.enterForm(Integer patientId, Integer formId, boolean useEncounter, List<String> fields);
-			]]>
-		</signatures>	
-	</dwr>
-	-->
-	
-	<!-- Servlets -->
-	<!-- Accessed through the url /pageContext()/moduleServlet/<moduleId>/<servlet-name> 
-	<servlet>
-		<servlet-name>formDownload</servlet-name>
-		<servlet-class>@MODULE_PACKAGE@.web.FormDownloadServlet</servlet-class>
-	</servlet>
-	-->
-	<!-- /Servlets -->
-	
+	</privilege>	
 	
 	<!-- Internationalization -->
 	<!-- All message codes should start with @MODULE_ID@.* -->

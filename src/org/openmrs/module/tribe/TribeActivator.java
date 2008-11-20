@@ -40,6 +40,8 @@ public class TribeActivator implements Activator {
 		boolean isOldOpenMRS = true;
 		try {
 			Class cls = OpenmrsClassLoader.getInstance().loadClass("org.openmrs.Tribe");
+			if (cls.isAnnotationPresent(Deprecated.class))
+				isOldOpenMRS = false;
 		} catch (ClassNotFoundException e) {
 			// OpenMRS version ok
 			isOldOpenMRS = false;
@@ -76,8 +78,18 @@ public class TribeActivator implements Activator {
 			
 			// drop tribe column in patient, this will make these scripts not run again
 			log.info("Dropping old tribe column");
-			as.executeSQL("ALTER TABLE patient DROP FOREIGN KEY belongs_to_tribe;", false);
-			as.executeSQL("ALTER TABLE patient DROP COLUMN tribe;", false);
+			try {
+				as.executeSQL("ALTER TABLE patient DROP FOREIGN KEY belongs_to_tribe;", false);
+			} catch (Exception e) {
+				log.warn("Unable to drop foreign key patient.belongs_to_tribe", e);
+			}
+			
+			try {
+				as.executeSQL("ALTER TABLE patient DROP COLUMN tribe;", false);
+			}
+			catch (Exception e) {
+				log.warn("Unable to drop column patient.tribe", e);
+			}
 			
 			log.info("Tribe data conversion complete");
 		}

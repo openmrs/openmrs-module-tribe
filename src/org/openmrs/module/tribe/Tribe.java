@@ -138,19 +138,27 @@ public class Tribe implements java.io.Serializable, Attributable<Tribe> {
 	 * @see org.openmrs.Attributable#hydrate(java.lang.String)
 	 */
 	public Tribe hydrate(String tribeId) {
-		try {
-			return ((TribeService) Context.getService(TribeService.class)).getTribe(Integer.valueOf(tribeId));
+		
+		if (tribeId != null && !tribeId.equals("")) {
+			try {
+				return ((TribeService) Context.getService(TribeService.class)).getTribe(Integer.valueOf(tribeId));
+			}
+			catch (Exception e) {
+				// pass
+			}
 		}
-		catch (Exception e) {
-			return new Tribe();
-		}
+		
+		return new Tribe();
 	}
 
 	/**
 	 * @see org.openmrs.Attributable#serialize()
 	 */
 	public String serialize() {
-		return "" + getTribeId();
+		if (getTribeId() == null)
+			return "";
+		else
+			return "" + getTribeId();
 	}
 	
 	/**
@@ -161,7 +169,10 @@ public class Tribe implements java.io.Serializable, Attributable<Tribe> {
 	}
 
 	public String toString() {
-		return getName();
+		if (getName() == null)
+			return "no tribe name specified";
+		else
+			return getName();
 	}
 	
 
@@ -169,7 +180,10 @@ public class Tribe implements java.io.Serializable, Attributable<Tribe> {
 	 * listField.tag generic fieldGen handler value
 	 */
 	public String getValue() {
-		return String.valueOf(tribeId);
+		if (tribeId == null)
+			return "";
+		else
+			return String.valueOf(tribeId);
 	}
 
 	/**

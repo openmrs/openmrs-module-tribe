@@ -70,10 +70,10 @@ public class TribeActivator implements Activator {
 			// create tribe attributes
 			log.info("Transforming tribe details");
 			as.executeSQL(
-				"INSERT INTO person_attribute (person_id, value, person_attribute_type_id, creator, date_created)"
+				"INSERT INTO person_attribute (person_id, value, person_attribute_type_id, creator, date_created, uuid)"
 				+ " SELECT patient_id, tribe," 
 				+ " (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'Tribe')"
-				+ " , 1, now() FROM patient WHERE tribe IS NOT NULL;"
+				+ " , 1, now(), UUID() FROM patient WHERE tribe IS NOT NULL;"
 				, false);
 			
 			// drop tribe column in patient, this will make these scripts not run again

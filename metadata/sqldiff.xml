@@ -29,8 +29,8 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 			
 			INSERT INTO person_attribute_type 
-				(name, description, format, creator, date_created) 
-				VALUES ('Tribe', 'Tribe of the person', 'org.openmrs.module.tribe.Tribe', 1, now());
+				(name, description, format, creator, date_created, uuid) 
+				VALUES ('Tribe', 'Tribe of the person', 'org.openmrs.module.tribe.Tribe', 1, now(), UUID());
 				
 			DELETE FROM global_property WHERE property = 'use_patient_attribute.tribe';		
 		</sql>

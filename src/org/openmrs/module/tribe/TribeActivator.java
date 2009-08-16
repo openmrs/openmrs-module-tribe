@@ -16,10 +16,13 @@ package org.openmrs.module.tribe;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Activator;
 import org.openmrs.module.ModuleException;
 import org.openmrs.util.OpenmrsClassLoader;
+import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.Role;
 
 /**
  * This class contains the logic that is run every time this module
@@ -60,39 +63,70 @@ public class TribeActivator implements Activator {
 				"which does not have a tribe column in the patient table.");
 		boolean isTribeColumnExists = true;
 		try {
+            Context.addProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
 			as.executeSQL("SELECT distinct tribe from patient where 1 = 0", true);
 		} catch (Exception e) {
 			// tribe column not found
 			isTribeColumnExists = false;
-		}
+		} finally {
+            Context.removeProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+        }
 		
 		if(isTribeColumnExists) {
 			// create tribe attributes
-			log.info("Transforming tribe details");
-			as.executeSQL(
-				"INSERT INTO person_attribute (person_id, value, person_attribute_type_id, creator, date_created, uuid)"
-				+ " SELECT patient_id, tribe," 
-				+ " (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'Tribe')"
-				+ " , 1, now(), UUID() FROM patient WHERE tribe IS NOT NULL;"
-				, false);
+            try {
+                log.info("Transforming tribe details");
+                Context.addProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+                as.executeSQL(
+                    "INSERT INTO person_attribute (person_id, value, person_attribute_type_id, creator, date_created, uuid)"
+                    + " SELECT patient_id, tribe,"
+                    + " (SELECT person_attribute_type_id FROM person_attribute_type WHERE name = 'Tribe')"
+                    + " , 1, now(), UUID() FROM patient WHERE tribe IS NOT NULL;"
+                    , false);
+            }
+            finally {
+                Context.removeProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+            }
 			
 			// drop tribe column in patient, this will make these scripts not run again
 			log.info("Dropping old tribe column");
 			try {
+                Context.addProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
 				as.executeSQL("ALTER TABLE patient DROP FOREIGN KEY belongs_to_tribe;", false);
 			} catch (Exception e) {
 				log.warn("Unable to drop foreign key patient.belongs_to_tribe", e);
-			}
+			} finally {
+                Context.removeProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+            }
 			
 			try {
-				as.executeSQL("ALTER TABLE patient DROP COLUMN tribe;", false);
+                Context.addProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+                as.executeSQL("ALTER TABLE patient DROP COLUMN tribe;", false);
 			}
 			catch (Exception e) {
 				log.warn("Unable to drop column patient.tribe", e);
 			}
+            finally {
+                Context.removeProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+            }
 			
 			log.info("Tribe data conversion complete");
 		}
+
+        // add View Tribes privilege to Authenticated role if not exists
+		try {
+            Context.addProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+            UserService us = Context.getUserService();
+            Role authenticatedRole = us.getRole(OpenmrsConstants.AUTHENTICATED_ROLE);
+            if(!authenticatedRole.hasPrivilege(TribeConstants.PRIV_VIEW_TRIBES)) {
+                as.executeSQL("INSERT INTO role_privilege (role, privilege) VALUES ('"
+                        + OpenmrsConstants.AUTHENTICATED_ROLE + "', '"
+                        + TribeConstants.PRIV_VIEW_TRIBES + "')", false);
+            }
+		}
+        finally {
+            Context.removeProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+        }
 		
 	}
 	

@@ -52,7 +52,7 @@ public interface TribeService extends OpenmrsService {
 	 * Retire Tribe
 	 */
 	@Authorized( { TribeConstants.PRIV_MANAGE_TRIBES })	
-	public void retireTribe(Tribe tribe) throws APIException;
+	public void retireTribe(Tribe tribe, String reason) throws APIException;
 
 	/**
 	 * Unretire Tribe

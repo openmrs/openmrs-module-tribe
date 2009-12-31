@@ -61,7 +61,7 @@ public class TribeServiceImpl extends BaseOpenmrsService implements TribeService
 	 * @param Tribe to retire
 	 * @throws APIException
 	 */
-	public void retireTribe(Tribe tribe) throws APIException {
+	public void retireTribe(Tribe tribe, String reason) throws APIException {
 		dao.retireTribe(tribe);
 	}
 

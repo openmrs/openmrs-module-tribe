@@ -17,13 +17,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.openmrs.Attributable;
+import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.api.context.Context;
 
 /**
  * Tribe
- * @version 1.0
+ * @version 1.5
  */
-public class Tribe implements java.io.Serializable, Attributable<Tribe> {
+public class Tribe extends BaseOpenmrsMetadata implements java.io.Serializable, Attributable<Tribe> {
 
 	public static final long serialVersionUID = 113232L;
 
@@ -54,7 +55,7 @@ public class Tribe implements java.io.Serializable, Attributable<Tribe> {
 		}
 		return false;
 	}
-	
+
 	public int hashCode() {
 		if (this.getTribeId() == null) return super.hashCode();
 		return this.getTribeId().hashCode();
@@ -111,6 +112,20 @@ public class Tribe implements java.io.Serializable, Attributable<Tribe> {
 	}
 
 	/**
+     * @see org.openmrs.OpenmrsObject#getId()
+     */
+    public Integer getId() {
+        return getTribeId();
+    }
+
+	/**
+     * @see org.openmrs.OpenmrsObject#setId(java.lang.Integer)
+     */
+    public void setId(Integer id) {
+        setTribeId(id);
+    }
+
+    /**
 	 * @see org.openmrs.Attributable#findPossibleValues(java.lang.String)
 	 */
 	public List<Tribe> findPossibleValues(String searchText) {
@@ -174,7 +189,7 @@ public class Tribe implements java.io.Serializable, Attributable<Tribe> {
 		else
 			return getName();
 	}
-	
+
 
 	/**
 	 * listField.tag generic fieldGen handler value

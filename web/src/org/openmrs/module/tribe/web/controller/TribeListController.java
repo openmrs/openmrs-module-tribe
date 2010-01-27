@@ -91,7 +91,7 @@ public class TribeListController extends SimpleFormController {
 				for (String t : tribeList) {
 					try {
 						if (action.equals("retire"))
-							ts.retireTribe(ts.getTribe(Integer.valueOf(t)), "-");
+							ts.retireTribe(ts.getTribe(Integer.valueOf(t)), "retired from tribe list page");
 						if (action.equals("unretire"))
 							ts.unretireTribe(ts.getTribe(Integer.valueOf(t)));
 						if (!success.equals("")) success += "<br/>";

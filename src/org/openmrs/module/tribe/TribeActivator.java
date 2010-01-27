@@ -41,6 +41,8 @@ public class TribeActivator implements Activator {
         extractTribeColumn();
 
         // Tribe module version 1.6 adds uuid column to tribe.
+        // This cannot go into sqldiff.xml because TribeActivator.extractTribeColumn() must execute first
+        // and sqldiff.xml executes before activator.startup()
         addUuidColumn();
 		
     }

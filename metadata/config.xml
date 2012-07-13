@@ -5,7 +5,7 @@
 	
 	<id>tribe</id>
 	<name>Tribe</name>
-	<version>1.5</version>
+	<version>1.6</version>
 	<package>org.openmrs.module.@MODULE_ID@</package>
 	<author>Upul Godage</author>
 	<description>

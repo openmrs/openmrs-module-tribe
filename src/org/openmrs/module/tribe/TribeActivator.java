@@ -15,6 +15,7 @@ package org.openmrs.module.tribe;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Role;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
@@ -22,7 +23,10 @@ import org.openmrs.module.Activator;
 import org.openmrs.module.ModuleException;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsConstants;
-import org.openmrs.Role;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+
+import javax.sql.DataSource;
 
 /**
  * This class contains the logic that is run every time this module
@@ -30,13 +34,13 @@ import org.openmrs.Role;
  */
 public class TribeActivator implements Activator {
 
-	private Log log = LogFactory.getLog(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
-	/**
-	 * @see org.openmrs.module.Activator#startup()
-	 */
-	public void startup() {
-		log.info("Starting Tribe Module");
+    /**
+     * @see org.openmrs.module.Activator#startup()
+     */
+    public void startup() {
+        log.info("Starting Tribe Module");
         // Upgrade tribe column to person attribute.
         extractTribeColumn();
 
@@ -44,7 +48,7 @@ public class TribeActivator implements Activator {
         // This cannot go into sqldiff.xml because TribeActivator.extractTribeColumn() must execute first
         // and sqldiff.xml executes before activator.startup()
         addUuidColumn();
-		
+
     }
 
     private void extractTribeColumn() {
@@ -72,15 +76,25 @@ public class TribeActivator implements Activator {
         log.info("The above message indicates that you are running a new implementation " +
                 "which does not have a tribe column in the patient table.");
         boolean isTribeColumnExists = true;
+
+
+        DataSource ds = new SingleConnectionDataSource( Context.getRuntimeProperties().getProperty("connection.url"),Context.getRuntimeProperties().getProperty("connection.username"),Context.getRuntimeProperties().getProperty("connection.password"), true);
+        JdbcTemplate jdbc = new JdbcTemplate(ds);
+
+        jdbc.setMaxRows(1);
         try {
-            Context.addProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
-            as.executeSQL("SELECT distinct tribe from patient where 1 = 0", true);
+
+           jdbc.queryForList("SELECT distinct tribe from patient where 1 = 0");
+
+
         } catch (Exception e) {
-            // tribe column not found
-            isTribeColumnExists = false;
-        } finally {
-            Context.removeProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
+             isTribeColumnExists = false;
+
+
         }
+
+        // now convert patient tribes to tribe attributes
+
 
         if (isTribeColumnExists) {
             // create tribe attributes
@@ -148,15 +162,15 @@ public class TribeActivator implements Activator {
 
         // Check if uuid column exists.
         boolean isUuidColumnExists = true;
-		try {
+        try {
             log.info("Ignore the error if occurs: " +
-                "Error while running sql: SELECT distinct uuid from tribe where 1 = 0 . Message: Unknown column 'uuid' in 'field list'");
+                    "Error while running sql: SELECT distinct uuid from tribe where 1 = 0 . Message: Unknown column 'uuid' in 'field list'");
             Context.addProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
-			as.executeSQL("SELECT distinct uuid from tribe where 1 = 0", true);
-		} catch (Exception e) {
-			// uuid column not found
-			isUuidColumnExists = false;
-		} finally {
+            as.executeSQL("SELECT distinct uuid from tribe where 1 = 0", true);
+        } catch (Exception e) {
+            // uuid column not found
+            isUuidColumnExists = false;
+        } finally {
             Context.removeProxyPrivilege(OpenmrsConstants.PRIV_SQL_LEVEL_ACCESS);
         }
 
@@ -187,9 +201,9 @@ public class TribeActivator implements Activator {
     }
 
     /**
-	 *  @see org.openmrs.module.Activator#shutdown()
-	 */
-	public void shutdown() {
-		log.info("Shutting down Tribe Module");
-	}
+     *  @see org.openmrs.module.Activator#shutdown()
+     */
+    public void shutdown() {
+        log.info("Shutting down Tribe Module");
+    }
 }

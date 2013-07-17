@@ -12,9 +12,9 @@
 	<url>http://openmrs.org</url>
 
 	<scm>
-		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/tribe/trunk/</connection>
-		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/tribe/trunk/</developerConnection>
-		<url>http://svn.openmrs.org/openmrs-modules/tribe/trunk/</url>
+		<connection>scm:git:https://github.com/openmrs/openmrs-modules-tribe/</connection>
+		<developerConnection>scm:git:https://github.com/openmrs/openmrs-modules-tribe/</developerConnection>
+		<url>https://github.com/openmrs/openmrs-modules-tribe/</url>
 	</scm>
 
 	<modules>

@@ -3,19 +3,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>	<id>tribe</id></artifactId>
-		<version>	<version>1.6</version>-SNAPSHOT</version>
+		<artifactId>tribe</artifactId>
+		<version>1.6-SNAPSHOT</version>
 	</parent>
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>	<id>tribe</id>-omod</artifactId>
+	<artifactId>tribe-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>	<name>Tribe</name> OMOD</name>
-	<description>OpenMRS module project for 	<name>Tribe</name></description>
+	<name>Tribe OMOD</name>
+	<description>OpenMRS module project for Tribe</description>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>	<id>tribe</id>-api</artifactId>
+			<artifactId>tribe-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		

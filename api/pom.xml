@@ -3,23 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>	<id>tribe</id></artifactId>
-		<version>	<version>1.6</version>-SNAPSHOT</version>
+		<artifactId>tribe</artifactId>
+		<version>1.6-SNAPSHOT</version>
 	</parent>
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>	<id>tribe</id>-api</artifactId>
+	<artifactId>tribe-api</artifactId>
 	<packaging>jar</packaging>
-	<name>	<name>Tribe</name> API</name>
-	<description>API project for 	<name>Tribe</name></description>
+	<name>Tribe API</name>
+	<description>API project for Tribe</description>
 
 	<dependencies>
-		<!-- 
-		Add other dependencies from lib:
-		<dependency>
-			<groupId>org.other.library</groupId>
-			<artifactId>library-name</artifactId>
-		</dependency>
-		-->
 		
 		<dependency>
 			<groupId>org.openmrs.api</groupId>

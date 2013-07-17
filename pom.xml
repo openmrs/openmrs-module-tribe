@@ -3,18 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>	<id>tribe</id></artifactId>
-	<version>	<version>1.6</version>-SNAPSHOT</version>
+	<artifactId>tribe</artifactId>
+	<version>1.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>	<name>Tribe</name></name>
-	<description>Parent project for 	<name>Tribe</name></description>
+	<name>Tribe</name>
+	<description>Parent project for Tribe</description>
 
 	<url>http://openmrs.org</url>
 
 	<scm>
-		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/	<id>tribe</id>/trunk/</connection>
-		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/	<id>tribe</id>/trunk/</developerConnection>
-		<url>http://svn.openmrs.org/openmrs-modules/	<id>tribe</id>/trunk/</url>
+		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/tribe/trunk/</connection>
+		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/tribe/trunk/</developerConnection>
+		<url>http://svn.openmrs.org/openmrs-modules/tribe/trunk/</url>
 	</scm>
 
 	<modules>
@@ -23,20 +23,7 @@
 	</modules>
 
 	<dependencyManagement>
-		<dependencies>
-			<!--
-			Libraries from lib to add as dependencies with compile or runtime scope:
-			
-				
-			Find matching dependencies in maven central repository.
-			<dependency>
-				<groupId>org.other.library</groupId>
-				<artifactId>library-name</artifactId>
-				<version>library.version</version>
-				<scope>compile</scope>
-			</dependency>
-			-->
-			
+		<dependencies>			
 			<dependency>
 				<groupId>org.openmrs.api</groupId>
 				<artifactId>openmrs-api</artifactId>

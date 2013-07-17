@@ -52,7 +52,6 @@
 	<!-- /Internationalization -->
 	
 	<mappingFiles>
-		Tribe.hbm.xml
 	</mappingFiles>	
 	
 </module>

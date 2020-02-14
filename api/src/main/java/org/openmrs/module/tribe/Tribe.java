@@ -128,6 +128,7 @@ public class Tribe extends BaseOpenmrsMetadata implements java.io.Serializable, 
     /**
 	 * @see org.openmrs.Attributable#findPossibleValues(java.lang.String)
 	 */
+	@Deprecated
 	public List<Tribe> findPossibleValues(String searchText) {
 		try {
 			return ((TribeService) Context.getService(TribeService.class)).findTribes(searchText);
@@ -140,6 +141,7 @@ public class Tribe extends BaseOpenmrsMetadata implements java.io.Serializable, 
 	/**
 	 * @see org.openmrs.Attributable#getPossibleValues()
 	 */
+	@Deprecated
 	public List<Tribe> getPossibleValues() {
 		try {
 			return ((TribeService) Context.getService(TribeService.class)).getTribes();
